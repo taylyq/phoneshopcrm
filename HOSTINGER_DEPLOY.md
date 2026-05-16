@@ -93,3 +93,14 @@ Also verify:
 - HTML references uploads through `/serve-file.php`.
 - Real `.env` files are not committed.
 - Create a ticket with an image/document and confirm it displays/downloads through the PHP endpoint.
+
+## Demo data
+
+After the env file and upload folders are ready, seed the live MySQL database from SSH:
+
+```bash
+cd /home/USERNAME/domains/YOUR_DOMAIN/public_html
+PHONESHOPCRM_ENV_PATH=/home/USERNAME/phoneshopcrm.env php scripts/seed_demo.php
+```
+
+The seeder creates the database tables if needed, writes small demo files into `UPLOAD_BASE_PATH`, and inserts four demo repair tickets. It only removes/recreates records with demo phone numbers like `demo-555-0101`; real customer records are left alone.
