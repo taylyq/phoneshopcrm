@@ -55,6 +55,10 @@ final class TicketController
         }
 
         if ($errors) {
+            if (\is_json_request()) {
+                \json_response(['ok' => false, 'errors' => $errors], 422);
+                return;
+            }
             $this->create($errors, $data);
             return;
         }
@@ -86,7 +90,16 @@ final class TicketController
                 \db()->rollBack();
             }
             \safe_log('upload-error.log', $exception->getMessage());
+            if (\is_json_request()) {
+                \json_response(['ok' => false, 'errors' => ['Ticket could not be saved: ' . $exception->getMessage()]], 422);
+                return;
+            }
             $this->create(['Ticket could not be saved: ' . $exception->getMessage()], $data);
+            return;
+        }
+
+        if (\is_json_request()) {
+            \json_response(['ok' => true, 'redirect' => '/tickets']);
             return;
         }
 

@@ -93,6 +93,22 @@ function redirect(string $path): never
     exit;
 }
 
+function is_json_request(): bool
+{
+    $accept = (string) ($_SERVER['HTTP_ACCEPT'] ?? '');
+    $requestedWith = (string) ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '');
+
+    return str_contains($accept, 'application/json') || strtolower($requestedWith) === 'xmlhttprequest';
+}
+
+function json_response(array $payload, int $status = 200): void
+{
+    http_response_code($status);
+    header('Content-Type: application/json; charset=utf-8');
+    header('X-Content-Type-Options: nosniff');
+    echo json_encode($payload);
+}
+
 function view(string $name, array $data = []): void
 {
     extract($data, EXTR_SKIP);

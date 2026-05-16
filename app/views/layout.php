@@ -9,6 +9,7 @@ declare(strict_types=1);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e(($title ?? 'Dashboard') . ' - ' . config('app_name')) ?></title>
     <link rel="stylesheet" href="/assets/css/app.css">
+    <script src="/assets/js/app.js" defer></script>
 </head>
 <body>
     <header class="topbar">

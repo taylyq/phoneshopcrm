@@ -40,10 +40,10 @@ final class UploadService
 
         $directory = \upload_base_path() . $type;
         if (!is_dir($directory) && !mkdir($directory, 0775, true)) {
-            throw new RuntimeException('Upload directory could not be created.');
+            throw new RuntimeException($this->directoryHelp($directory, 'could not be created'));
         }
         if (!is_writable($directory)) {
-            throw new RuntimeException('Upload directory is not writable.');
+            throw new RuntimeException($this->directoryHelp($directory, 'is not writable'));
         }
 
         $filename = $this->safeFilename((string) ($file['name'] ?? 'upload.bin'));
@@ -98,5 +98,15 @@ final class UploadService
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         return $directory . '/' . $stem . '-' . date('YmdHis') . '-' . bin2hex(random_bytes(3)) . '.' . $extension;
+    }
+
+    private function directoryHelp(string $directory, string $reason): string
+    {
+        $base = \upload_base_path();
+        if (str_starts_with($base, '/private/tmp')) {
+            return 'Upload storage still points to the local development path. Set UPLOAD_BASE_PATH to a Hostinger folder outside public_html, for example /home/USERNAME/uploads, then create images, teachers, lessons, and documents inside it.';
+        }
+
+        return 'Upload directory ' . $reason . ': ' . $directory . '. Create it outside public_html and make sure PHP can write to it.';
     }
 }
