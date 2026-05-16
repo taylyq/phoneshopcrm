@@ -53,6 +53,8 @@ Create upload folders manually using FTP, SSH, or Hostinger File Manager before 
 
 Ensure PHP can write to each folder. The app stores only relative paths such as `images/photo.jpg` or `documents/invoice.pdf` in the database. It never stores full server paths.
 
+`UPLOAD_BASE_PATH` must be the shared parent folder, not an individual type folder. Use `/home/USERNAME/uploads`, not `/home/USERNAME/uploads/images`.
+
 ## Serving files
 
 Uploaded files are served only through:

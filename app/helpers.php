@@ -162,7 +162,25 @@ function require_admin_pin(): void
 
 function upload_base_path(): string
 {
+    return normalized_upload_base_path((string) config('uploads.base_path'));
+}
+
+function configured_upload_base_path(): string
+{
     return rtrim((string) config('uploads.base_path'), '/\\') . '/';
+}
+
+function normalized_upload_base_path(string $path): string
+{
+    $path = rtrim($path, '/\\');
+    $types = (array) config('uploads.types', []);
+    $lastSegment = basename(str_replace('\\', '/', $path));
+
+    if (in_array($lastSegment, $types, true)) {
+        $path = dirname($path);
+    }
+
+    return rtrim($path, '/\\') . '/';
 }
 
 function upload_relative_url(?string $relativePath): ?string
@@ -220,6 +238,7 @@ function diagnostics_snapshot(array $config, ?string $envPath, string $publicRoo
         'db_username' => (string) ($db['username'] ?? ''),
         'password' => !empty($db['password']) ? 'Set' : 'Missing',
         'safe_reason' => $reason ?: 'OK',
+        'configured_upload_base' => configured_upload_base_path(),
         'upload_base' => upload_base_path(),
     ];
 }
