@@ -1,10 +1,23 @@
-<section class="hero">
-    <div>
-        <p class="eyebrow">Repair intake</p>
-        <h1>Phone repair workbench</h1>
-        <p>Track customers, devices, intake notes, and private upload-backed attachments from one small Hostinger-friendly PHP app.</p>
+<section class="hero hero-centered">
+    <div class="hero-copy">
+        <p class="eyebrow">Repair OS</p>
+        <h1>Seamlessly connected to your repair workflow</h1>
+        <p class="hero-lede">Intake, device notes, private documents, and repair status in one lightweight Hostinger-ready dashboard.</p>
     </div>
-    <a class="button" href="/tickets/new">Create ticket</a>
+
+    <div class="ecosystem" aria-hidden="true">
+        <span class="node node-small">IMEI</span>
+        <span class="node">Parts</span>
+        <span class="node node-core">CORE - active intake</span>
+        <span class="node">Files</span>
+        <span class="node node-small">Done</span>
+        <span class="node node-dot">+</span>
+    </div>
+
+    <div class="hero-meta">
+        <strong><?= count($tickets) ?> repair tickets. Secure uploads. Private file delivery.</strong>
+        <span>Built for small phone shops that need fast intake without exposing customer files.</span>
+    </div>
 </section>
 
 <section class="panel">

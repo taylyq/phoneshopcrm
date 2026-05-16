@@ -1,9 +1,13 @@
-<section class="panel narrow">
-    <div class="section-title">
+<section class="hero form-hero">
+    <div>
+        <p class="eyebrow">Intake</p>
         <h1>New repair ticket</h1>
-        <a href="/tickets">Back</a>
+        <p>Capture the customer, device, issue, and private upload-backed files in one clean pass.</p>
     </div>
+    <a class="button button-light" href="/tickets">Back</a>
+</section>
 
+<section class="panel narrow">
     <?php if (!empty($errors)): ?>
         <div class="alert">
             <?php foreach ($errors as $error): ?>

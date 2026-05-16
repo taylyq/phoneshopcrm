@@ -13,12 +13,16 @@ declare(strict_types=1);
 </head>
 <body>
     <header class="topbar">
-        <a class="brand" href="/"><?= e(config('app_name')) ?></a>
-        <nav>
-            <a href="/tickets">Tickets</a>
-            <a href="/tickets/new">New ticket</a>
+        <a class="brand" href="/">phoneshop</a>
+        <nav class="primary-nav">
+            <a href="/tickets">Dashboard</a>
+            <a href="/tickets/new">Intake</a>
             <a href="/diagnostics.php">Diagnostics</a>
         </nav>
+        <div class="nav-actions">
+            <span>Repair desk</span>
+            <a class="nav-pill" href="/tickets/new">New ticket</a>
+        </div>
     </header>
     <main class="shell">
         <?php require $viewPath; ?>
