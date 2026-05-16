@@ -1,0 +1,13 @@
+.DS_Store
+.env
+*.env
+config.local.php
+database/*.sqlite
+database/*.sqlite-*
+storage/*.log
+storage/cache/*
+!storage/cache/.gitkeep
+vendor/
+node_modules/
+public_html/uploads/
+public_html/assets/uploads/
