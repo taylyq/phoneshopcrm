@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require dirname(__DIR__) . '/app/bootstrap.php';
+require __DIR__ . '/app/bootstrap.php';
 
 $snapshot = diagnostics_snapshot($GLOBALS['config'], $GLOBALS['env_path'] ?? null, $GLOBALS['public_root'], $GLOBALS['pdo_error'] ?? 'OK');
 $folders = [];

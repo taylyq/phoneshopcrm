@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require dirname(__DIR__) . '/app/bootstrap.php';
+require __DIR__ . '/app/bootstrap.php';
 
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
@@ -26,7 +26,7 @@ if ($method === 'POST') {
     verify_csrf();
 }
 
-$routes = require dirname(__DIR__) . '/app/routes.php';
+$routes = require __DIR__ . '/app/routes.php';
 $handler = $routes[$method][$path] ?? null;
 
 if (!$handler) {

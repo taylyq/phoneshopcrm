@@ -2,7 +2,9 @@
 
 ## Web root
 
-Deploy this repository to your Hostinger site so `public_html` is the web root. Git/Hostinger redeployment may overwrite anything inside `public_html`, so do not put persistent uploads, secrets, logs, or generated database files there.
+Deploy this repository with Hostinger Git so the repository contents land directly in your hosting account's `public_html` directory. This repo is intentionally flat for Hostinger: `index.php`, `serve-file.php`, `diagnostics.php`, and `assets/` live at the web root.
+
+Git/Hostinger redeployment may overwrite anything inside `public_html`, so do not put persistent uploads, secrets, logs, or generated database files there. The included `.htaccess` blocks direct browser access to `app/`, `database/`, `scripts/`, `storage/`, `config.php`, `.env`, and docs.
 
 ## Environment file
 
@@ -21,7 +23,7 @@ Set `PHONESHOPCRM_ENV_PATH=/home/USERNAME/phoneshopcrm.env` in Hostinger if your
 /home/USERNAME/domains/YOUR_DOMAIN/.env
 ```
 
-Fallback to `public_html/.env` only if Hostinger gives you no better option. Never commit real `.env` files to GitHub.
+Avoid placing `.env` in `public_html`; the app intentionally loads outside-web-root env files first. If you temporarily place `.env` in `public_html` while debugging, delete it after confirming the external env path works. Never commit real `.env` files to GitHub.
 
 Required production values:
 

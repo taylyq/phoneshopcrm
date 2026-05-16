@@ -1,8 +1,18 @@
-DirectoryIndex public_html/index.php
+DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^public_html/ - [L]
-    RewriteRule ^$ public_html/index.php [L]
-    RewriteRule (.*) public_html/$1 [L]
+
+    RewriteRule ^(\.env|\.git|config\.php|HOSTINGER_DEPLOY\.md|README\.md)$ - [F,L]
+    RewriteRule ^(app|database|scripts|storage)(/|$) - [F,L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index.php [L]
 </IfModule>
+
+<FilesMatch "^(\.env|\.gitignore|config\.php|.*\.md)$">
+    Require all denied
+</FilesMatch>

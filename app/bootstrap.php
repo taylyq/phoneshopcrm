@@ -29,7 +29,7 @@ spl_autoload_register(function (string $class): void {
 require __DIR__ . '/helpers.php';
 
 $rootPath = dirname(__DIR__);
-$publicRoot = $rootPath . '/public_html';
+$publicRoot = $rootPath;
 $domainRoot = dirname($publicRoot);
 $accountRoot = dirname($rootPath);
 
@@ -40,7 +40,6 @@ $envCandidates = array_filter([
     $domainRoot . '/phoneshopcrm.env',
     $domainRoot . '/.env',
     $rootPath . '/.env',
-    $publicRoot . '/.env',
 ]);
 
 $envPath = null;

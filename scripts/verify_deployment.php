@@ -27,9 +27,10 @@ foreach ($phpFiles as $file) {
 require $root . '/app/bootstrap.php';
 
 $publicUploadPaths = [
-    $root . '/public_html/uploads',
-    $root . '/public_html/assets/uploads',
-    $root . '/public_html/assets/img/uploads',
+    $root . '/uploads',
+    $root . '/assets/uploads',
+    $root . '/assets/img/uploads',
+    $root . '/public_html',
 ];
 
 foreach ($publicUploadPaths as $path) {
@@ -43,11 +44,10 @@ foreach ((array) config('uploads.types', []) as $type) {
 }
 
 $uploadService = file_get_contents($root . '/app/UploadService.php') ?: '';
-$serveFile = file_get_contents($root . '/public_html/serve-file.php') ?: '';
+$serveFile = file_get_contents($root . '/serve-file.php') ?: '';
 
 check_line(str_contains($uploadService, 'move_uploaded_file('), 'Uploads use move_uploaded_file().');
 check_line(str_contains($serveFile, 'readfile(') && str_contains($serveFile, 'realpath('), 'serve-file.php streams files with path whitelist checks.');
 check_line(!is_file($root . '/.env'), 'Root .env is not present for Git deployment.');
-check_line(!is_file($root . '/public_html/.env'), 'public_html/.env is not present.');
 
 exit($failed ? 1 : 0);
