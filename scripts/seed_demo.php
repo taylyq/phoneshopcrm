@@ -9,17 +9,7 @@ if (!isset($GLOBALS['pdo'])) {
     exit(1);
 }
 
-$schema = db_driver() === 'mysql'
-    ? dirname(__DIR__) . '/database/schema.mysql.sql'
-    : dirname(__DIR__) . '/database/schema.sqlite.sql';
-
-$schemaSql = file_get_contents($schema);
-if ($schemaSql === false) {
-    fwrite(STDERR, 'Could not read schema file.' . PHP_EOL);
-    exit(1);
-}
-
-db()->exec($schemaSql);
+ensure_app_schema();
 
 foreach ((array) config('uploads.types', []) as $type) {
     $path = upload_base_path() . $type;

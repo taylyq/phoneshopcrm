@@ -37,4 +37,20 @@ if (!$handler) {
 
 [$controller, $action] = $handler;
 $class = 'App\\Controllers\\' . $controller;
-(new $class())->$action();
+
+try {
+    (new $class())->$action();
+} catch (Throwable $exception) {
+    safe_log('runtime-error.log', $exception->getMessage());
+    http_response_code(500);
+    view('error', [
+        'title' => 'Application setup needed',
+        'message' => 'The app hit a setup issue. Check /diagnostics.php and storage/runtime-error.log for the safe error trail.',
+        'details' => [
+            'safe_reason' => safe_db_error($exception),
+            'db_driver' => db_driver(),
+            'db_name' => (string) config('db.database', ''),
+            'upload_base' => upload_base_path(),
+        ],
+    ]);
+}

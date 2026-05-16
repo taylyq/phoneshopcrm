@@ -62,6 +62,26 @@ function db_driver(): string
     return (string) config('db.driver', 'mysql');
 }
 
+function ensure_app_schema(): void
+{
+    static $ensured = false;
+    if ($ensured) {
+        return;
+    }
+
+    $schema = db_driver() === 'mysql'
+        ? dirname(__DIR__) . '/database/schema.mysql.sql'
+        : dirname(__DIR__) . '/database/schema.sqlite.sql';
+
+    $sql = file_get_contents($schema);
+    if ($sql === false) {
+        throw new RuntimeException('Database schema file is missing.');
+    }
+
+    db()->exec($sql);
+    $ensured = true;
+}
+
 function e(mixed $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');

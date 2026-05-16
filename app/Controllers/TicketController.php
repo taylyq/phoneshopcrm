@@ -12,6 +12,8 @@ final class TicketController
     public function index(): void
     {
         \require_admin_pin();
+        \ensure_app_schema();
+
         $tickets = \db()->query(
             'SELECT t.*, COUNT(a.id) AS attachment_count
              FROM repair_tickets t
@@ -26,12 +28,15 @@ final class TicketController
     public function create(array $errors = [], array $old = []): void
     {
         \require_admin_pin();
+        \ensure_app_schema();
+
         \view('tickets/create', ['title' => 'New repair ticket', 'errors' => $errors, 'old' => $old]);
     }
 
     public function store(): void
     {
         \require_admin_pin();
+        \ensure_app_schema();
 
         $data = [
             'customer_name' => trim((string) ($_POST['customer_name'] ?? '')),
